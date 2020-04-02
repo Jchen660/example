@@ -1,6 +1,6 @@
 # vue+antd搭建后台管理界面模版（PC端）
 
-<img src="./static/gif.gif" width="100%" height="519px"/>  
+<img src="./src/static/login.png" width="100%" height="519px"/>  
 
 
 #### 技术栈
@@ -67,7 +67,22 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + antd + 阿里图标iconfont
 ------------------------
 
 登录
-![登录](./static/login.png "登录")
+![登录](./src/static/login.png "登录")
+
+index
+![index](./src/static/index.png "index")
+
+menu
+![menu](./src/static/menu.png "menu")
+
+role
+![role](./src/static/role.png "role")
+
+user
+![user](./src/static/user.png "user")
+
+zd
+![zd](./src/static/login.png "zd")
 
 
 
