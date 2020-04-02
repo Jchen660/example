@@ -69,20 +69,20 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + antd + 阿里图标iconfont
 登录
 ![登录](./src/static/login.png "登录")
 
-index
-![index](./src/static/index.png "index")
+首页
+![首页](./src/static/index.png "首页")
 
-menu
-![menu](./src/static/menu.png "menu")
+菜单
+![菜单](./src/static/menu.png "菜单")
 
-role
-![role](./src/static/role.png "role")
+角色
+![角色](./src/static/role.png "角色")
 
-user
-![user](./src/static/user.png "user")
+用户
+![用户](./src/static/user.png "用户")
 
-zd
-![zd](./src/static/zd.png "zd")
+字典
+![字典](./src/static/zd.png "字典")
 
 
 
