@@ -95,8 +95,13 @@ export default {
       GetMenu()
         .then(res => {
           if (res.code == 0) {
-            // this.menu = res.data;
-            this.formatData(res.data);
+            this.formatData(
+              localStorage.lang == "cn"
+                ? res.data.cn
+                : localStorage.lang == "en"
+                ? res.data.en
+                : res.data.ja
+            );
           } else {
             this.$message.info(err);
           }

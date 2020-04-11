@@ -61,6 +61,7 @@ const cn = {
     "addSuccess": "添加成功！",
     "editSuccess": "编辑成功！",
     "success": "成功",
+    "accessLogin":"登录成功"
   }
 }
 

@@ -60,7 +60,7 @@
                     :style="{ fontSize: '16px', color: '#0088cc' }"
                   />
                 </a-input>
-                <img @click="SwitchCode" :src="codeUrl" />
+                <!-- <img @click="SwitchCode" :src="codeUrl" /> -->
               </div>
             </a-form-item>
             <a-form-item class="Item inputbox">
@@ -147,7 +147,8 @@ export default {
                 getUserInfo()
                   .then(res => {
                     if (res.code == 0) {
-                      this.$message.success("登录成功");
+                      console.log()
+                      this.$message.success(this.$t("logistics.accessLogin"));
                       localStorage.setItem(
                         "UserInfo",
                         JSON.stringify(res.data.sysUser)
