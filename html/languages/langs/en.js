@@ -59,6 +59,7 @@ const en = {
     "addSuccess": "Add success!",
     "editSuccess": "Edit successfully!",
     "success": "successful",
+    "accessLogin":"login successfully"
   }
 }
 

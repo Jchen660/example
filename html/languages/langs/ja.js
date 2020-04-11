@@ -59,6 +59,7 @@ const ja = {
     "addSuccess": "追加成功!",
     "editSuccess": "編集成功!",
     "success": "成功",
+    "accessLogin":"ログイン成功"
   }
 }
 
