@@ -19,7 +19,7 @@
       <dv-decoration-8 :reverse="true" style="width:25%;height:60px;" />
     </div>
     <!-- 中间主体内容 -->
-    <div class="smcon">
+    <div class="smcon" v-if="showSwipe">
       <dv-border-box-1>
         <div class="border-con">
           <div class="border-smcon">
@@ -70,9 +70,15 @@
                                 <dv-decoration-1 style="width:100%;height:100%" />
                               </div>
                               <div class="cen-t">实时贸易总量</div>
-                              <dv-digital-flop :config="totalconfig" style="width:100%;height:50px;" />
+                              <dv-digital-flop
+                                :config="totalconfig"
+                                style="width:100%;height:50px;"
+                              />
                               <div class="cen-t">实时贸易总笔数</div>
-                              <dv-digital-flop :config="totalpenconfig" style="width:100%;height:50px;" />
+                              <dv-digital-flop
+                                :config="totalpenconfig"
+                                style="width:100%;height:50px;"
+                              />
                             </div>
                             <div class="tbox-bottom">
                               <dv-scroll-ranking-board :config="Realtimeconfig" />
@@ -161,6 +167,7 @@ export default {
   name: "welcome",
   data() {
     return {
+      showSwipe:true,
       FullScreen: false,
       NewTime: "",
       // 支付方式
@@ -699,6 +706,10 @@ export default {
     // 时间定时器
     setInterval(this.getTime, 1000);
     // 请求数据
+    this.showSwipe = false;
+    this.$nextTick(function() {
+      this.showSwipe = true;
+    });
   },
   // 挂载结束状态(里面是操作)
   mounted() {},

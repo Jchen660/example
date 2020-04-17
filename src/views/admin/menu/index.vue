@@ -11,7 +11,7 @@
       </div>
       <div>
         <a-row>
-          <a-col :span="8">
+          <a-col :span="4" class="col-h">
             <a-tree
               :treeData="menuTreeData"
               :replaceFields="menuReplaceFields"
@@ -21,7 +21,7 @@
               showLine
             />
           </a-col>
-          <a-col :span="16">
+          <a-col :span="10">
             <a-form :form="modalForm" @submit="modalHandleSubmit">
               <a-form-item
                 :label="$t('parentId')"
@@ -276,5 +276,9 @@ export default {
 }
 .btn_right_margin {
   margin-right: 10px;
+}
+.col-h{
+  min-height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 1px;
 }
 </style>
