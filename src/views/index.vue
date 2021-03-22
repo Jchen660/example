@@ -2,7 +2,7 @@
   <a-layout class="layoutbox" id="components-layout-demo-custom-trigger">
     <!-- 左侧菜单 -->
     <a-layout-sider :trigger="null" collapsible v-model="collapsed">
-      <div class="logo">{{collapsed?"admin":"管理云平台"}}</div>
+      <div class="logo">{{ collapsed ? "admin" : "管理云平台" }}</div>
       <a-menu
         theme="dark"
         mode="inline"
@@ -13,11 +13,14 @@
         <a-sub-menu v-for="item in menu" :key="item.path">
           <span slot="title">
             <i class="iconfont" :class="item.icon"></i>
-            <span v-show="!collapsed">{{item.name}}</span>
+            <span v-show="!collapsed">{{ item.name }}</span>
           </span>
-          <a-menu-item v-for="childrenitem in item.children" :key="childrenitem.showPath">
+          <a-menu-item
+            v-for="childrenitem in item.children"
+            :key="childrenitem.showPath"
+          >
             <i class="iconfont" :class="childrenitem.icon"></i>
-            <span>{{childrenitem.name}}</span>
+            <span>{{ childrenitem.name }}</span>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
@@ -29,7 +32,7 @@
         <a-icon
           class="trigger"
           :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="()=> collapsed = !collapsed"
+          @click="() => (collapsed = !collapsed)"
         />
         <div class="user-head">
           <!-- 切换语言 -->
@@ -43,21 +46,21 @@
           <!-- 用户信息 -->
           <a-dropdown>
             <a class="ant-dropdown-link" href="#">
-              {{UserInfo.username}}
+              {{ UserInfo.username }}
               <a-icon type="down" />
             </a>
             <a-menu slot="overlay">
               <a-menu-item @click="headClick('home')">
                 <i class="iconfont iconicon_huabanfuben"></i>
-                <span>{{$t('logistics.index')}}</span>
+                <span>{{ $t("logistics.index") }}</span>
               </a-menu-item>
               <a-menu-item @click="headClick('msg')">
                 <i class="iconfont icongerenzhongxin"></i>
-                <span>{{$t('logistics.PersonalInformation')}}</span>
+                <span>{{ $t("logistics.PersonalInformation") }}</span>
               </a-menu-item>
               <a-menu-item @click="headClick('quit')">
                 <i class="iconfont icontuichu2"></i>
-                <span>{{$t('logistics.LogOut')}}</span>
+                <span>{{ $t("logistics.LogOut") }}</span>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -65,7 +68,12 @@
       </a-layout-header>
       <!-- 中间主体部分 -->
       <a-layout-content
-        :style="{ margin: '10px 10px', padding: '0px', background: '#fff', minHeight: '280px' }"
+        :style="{
+          margin: '10px 10px',
+          padding: '0px',
+          background: '#fff',
+          minHeight: '280px'
+        }"
       >
         <router-view class="avue-view" />
       </a-layout-content>
@@ -75,6 +83,8 @@
 <script>
 import { GetMenu } from "../api/admin/token";
 import { disposereq } from "@/utils/util";
+import router from "@/router";
+import Layout from "@/views/index/";
 export default {
   data() {
     return {
@@ -102,6 +112,15 @@ export default {
                 ? res.data.en
                 : res.data.ja
             );
+            let asyncRouters = this.routerPackag(
+              localStorage.lang == "cn"
+                ? res.data.cn
+                : localStorage.lang == "en"
+                ? res.data.en
+                : res.data.ja
+            );
+            asyncRouters.push({ path: "*", redirect: "/index" });
+            router.addRoutes(asyncRouters);
           } else {
             this.$message.info(err);
           }
@@ -109,6 +128,28 @@ export default {
         .catch(err => {
           disposereq(this, err);
         });
+    },
+    // 路由数据重新封装
+    routerPackag(routers) {
+      let accessedRouters = routers.filter(router => {
+        if (router.component === "Layout") {
+          // Layout组件特殊处理
+          router.component = Layout;
+        } else {
+          //处理组件---重点
+          router.component = this.loadView(router.component);
+        }
+        //存在子集
+        if (router.children && router.children.length) {
+          router.children = this.routerPackag(router.children);
+        }
+        return true;
+      });
+      return accessedRouters;
+    },
+    loadView(view) {
+      // 路由懒加载
+      return () => import(`@/${view}`);
     },
     // 菜单点击事件
     selectItem(item) {
